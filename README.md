@@ -19,8 +19,8 @@ Press `Esc` to quit.
 
 ## To do
 
-[ ] Random color for symbols (`red` now)
-[ ] Lower case letters not just upper case
-[ ] Random size for logos
-[ ] Sounds
-[ ] A `Makefile` instead of the shell script
+- [ ] Random color for symbols (`red` now)
+- [ ] Lower case letters not just upper case
+- [ ] Random size for logos
+- [ ] Sounds
+- [ ] A `Makefile` instead of the shell script
