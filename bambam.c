@@ -26,6 +26,10 @@ int nfig=0;//number of figures
 Texture2D T[NMAX];//number of textures
 int ntext=0;//number of textures
 
+Sound S[NMAX];//vector of sounds
+int nsnd=0;//number of sounds
+
+///////////////////////////////////////////////////////////////////////////
 void CreateTexture(char path[])
 {
     Image img = LoadImage(path);
@@ -49,11 +53,34 @@ void CleanTextures()
         UnloadTexture(T[i]);
 }
 
+void CreateSound(char path[])
+{
+    S[nsnd++] = LoadSound(path);
+}
+
+void CreateSounds()
+{
+    CreateSound("resources/sound/Boing.mp3");
+    CreateSound("resources/sound/Cowbell.mp3");
+    CreateSound("resources/sound/Siren.mp3");
+    CreateSound("resources/sound/Ding.mp3");
+    CreateSound("resources/sound/Trombone.mp3");
+}
+
+void CleanSounds()
+{
+    for(int i=0;i<nsnd;i++)
+        UnloadSound(S[i]);
+}
+
 void HandleKeys()
 {
     int key;
     while(key=GetKeyPressed())
     {
+
+        PlaySound(S[GetRandomValue(0,nsnd-1)]);
+
         if(nfig < NMAX)
         switch(key)
         {
@@ -160,10 +187,11 @@ int main(void)
 {
     SetRandomSeed(time(NULL));
 
-
     InitWindow(screenWidth, screenHeight, "Bam Bam - Linux Logos");
+    InitAudioDevice();
 
     CreateTextures();
+    CreateSounds();
 
     SetTargetFPS(60);
 
@@ -182,6 +210,7 @@ int main(void)
     }
 
     CleanTextures();
+    CleanSounds();
 
     CloseWindow();
 
