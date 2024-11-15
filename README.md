@@ -14,13 +14,14 @@ Press `Esc` to quit.
 
 ## Done so far
 
-- A symbol appear when a printable key is  pressed.
+- A symbol appears when a printable key is pressed.
 - A `linux` logo appears when other keys are pressed.
+- A random sound is played at any key press.
 
 ## To do
 
 - [ ] Random color for symbols (`red` now)
 - [ ] Lower case letters not just upper case
 - [ ] Random size for logos
-- [ ] Sounds
+- [x] Sounds
 - [ ] A `Makefile` instead of the shell script
