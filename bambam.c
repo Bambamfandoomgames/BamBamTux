@@ -1,4 +1,5 @@
 #include<time.h>
+#include<ctype.h>
 #include "raylib.h"
 
 #define NMAX 50
@@ -8,6 +9,34 @@
 const int screenWidth = 1000;
 const int screenHeight = 600;
 
+Color palette[]={
+    LIGHTGRAY  ,
+    GRAY       ,
+    DARKGRAY   ,
+    YELLOW     ,
+    GOLD       ,
+    ORANGE     ,
+    PINK       ,
+    RED        ,
+    MAROON     ,
+    GREEN      ,
+    LIME       ,
+    DARKGREEN  ,
+    SKYBLUE    ,
+    BLUE       ,
+    DARKBLUE   ,
+    PURPLE     ,
+    VIOLET     ,
+    DARKPURPLE ,
+    BEIGE      ,
+    BROWN      ,
+    DARKBROWN  ,
+    BLACK      ,
+    MAGENTA    ,
+    RAYWHITE   };
+
+const int ncolors = sizeof(palette)/sizeof(Color);
+
 typedef enum {
 	SYM, IMG
 } FIG_TYPE;
@@ -16,6 +45,7 @@ struct fig {
     FIG_TYPE type;
     int index;//index in the vector of textures or -1 for symbols
     int key;//symbol to draw or -1
+    int color;//index in the vector of colors or -1
     Vector2 pos;//position in the window
     double time;//time of creation
 };
@@ -133,9 +163,10 @@ void HandleKeys()
             case KEY_GRAVE:
                 V[nfig].type = SYM;
                 V[nfig].index = -1;
-                V[nfig].key = key;
+                V[nfig].key = (GetRandomValue(0,1)==0 ? key : tolower(key));
                 V[nfig].pos.x = GetRandomValue(0,screenWidth-FONT_SIZE);
                 V[nfig].pos.y = GetRandomValue(0,screenHeight-FONT_SIZE);
+                V[nfig].color = GetRandomValue(0,ncolors-1);
                 V[nfig].time = GetTime();
                 ++nfig;
                 break;
@@ -147,6 +178,7 @@ void HandleKeys()
                 V[nfig].index = idx;
                 V[nfig].pos.x = GetRandomValue(0,screenWidth-T[idx].width);
                 V[nfig].pos.y = GetRandomValue(0,screenHeight-T[idx].height);
+                V[nfig].color = -1;
                 V[nfig].time = GetTime();
                 ++nfig;
                 break;
@@ -167,7 +199,7 @@ void Draw()
             else
             {
                 symbol[0]=V[i].key;
-                DrawText(symbol,V[i].pos.x,V[i].pos.y,FONT_SIZE,RED);
+                DrawText(symbol,V[i].pos.x,V[i].pos.y,FONT_SIZE,palette[V[i].color]);
             }
         }
         else
