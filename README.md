@@ -6,6 +6,13 @@ A `bambam` style game rewritten from scratch in `raylib`.
 
 ## Run
 
+
+```sh
+make && ./run.sh
+```
+
+or
+
 ```sh
 ./build_and_run.sh
 ```
@@ -24,4 +31,4 @@ Press `Esc` to quit.
 - [x] Lower case letters not just upper case
 - [ ] Random size for logos
 - [x] Sounds
-- [ ] A `Makefile` instead of the shell script
+- [x] A `Makefile` instead of the shell script
