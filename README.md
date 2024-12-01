@@ -24,6 +24,8 @@ Press `Esc` to quit.
 - A symbol appears when a printable key is pressed.
 - A `linux` logo appears when other keys are pressed.
 - A random sound is played at any key press.
+- Window opens maximized.
+- Basic scaling of logos.
 
 ## To do
 
@@ -32,3 +34,4 @@ Press `Esc` to quit.
 - [ ] Random size for logos
 - [x] Sounds
 - [x] A `Makefile` instead of the shell script
+- [ ] A true fullscren

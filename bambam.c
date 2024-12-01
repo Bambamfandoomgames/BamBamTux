@@ -6,8 +6,8 @@
 #define TTL 7
 #define FONT_SIZE 100
 
-const int screenWidth = 1000;
-const int screenHeight = 600;
+int screenWidth;
+int screenHeight;
 
 Color palette[]={
     LIGHTGRAY  ,
@@ -47,6 +47,7 @@ struct fig {
     int key;//symbol to draw or -1
     int color;//index in the vector of colors or -1
     Vector2 pos;//position in the window
+    float scale;//scale factor for logos
     double time;//time of creation
 };
 
@@ -168,6 +169,7 @@ void HandleKeys()
                 V[nfig].pos.y = GetRandomValue(0,screenHeight-FONT_SIZE);
                 V[nfig].color = GetRandomValue(0,ncolors-1);
                 V[nfig].time = GetTime();
+                V[nfig].scale = 0.0f;
                 ++nfig;
                 break;
 
@@ -179,6 +181,7 @@ void HandleKeys()
                 V[nfig].pos.x = GetRandomValue(0,screenWidth-T[idx].width);
                 V[nfig].pos.y = GetRandomValue(0,screenHeight-T[idx].height);
                 V[nfig].color = -1;
+                V[nfig].scale = GetRandomValue(1,9)/4.0f;
                 V[nfig].time = GetTime();
                 ++nfig;
                 break;
@@ -195,7 +198,9 @@ void Draw()
         if(GetTime()-V[i].time <= TTL)
         {
             if(V[i].type == IMG)
-                DrawTexture(T[V[i].index], V[i].pos.x, V[i].pos.y, WHITE);
+                //DrawTexture(T[V[i].index], V[i].pos.x, V[i].pos.y, WHITE);
+                DrawTextureEx(T[V[i].index], V[i].pos, 0, V[i].scale, WHITE);
+
             else
             {
                 symbol[0]=V[i].key;
@@ -219,7 +224,13 @@ int main(void)
 {
     SetRandomSeed(time(NULL));
 
-    InitWindow(screenWidth, screenHeight, "Bam Bam - Linux Logos");
+    //InitWindow(screenWidth, screenHeight, "Bam Bam - Linux Logos");
+
+    InitWindow(GetScreenWidth(), GetScreenHeight(), "Bam Bam - Linux Logos");
+
+    screenWidth = GetScreenWidth();
+    screenHeight = GetScreenHeight();
+
     InitAudioDevice();
 
     CreateTextures();
